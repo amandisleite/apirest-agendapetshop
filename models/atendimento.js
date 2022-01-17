@@ -38,7 +38,7 @@ class Atendimento {
                 if(erro) {
                 res.status(400).json(erro)
                 } else {
-                res.status(201).json(resultados)
+                res.status(201).json(atendimentoComData)
                 }
             })
         }
@@ -71,7 +71,7 @@ class Atendimento {
         })
     }
 
-    alteracao(id, valores, res) {
+    alteracaoDeAtendimento(id, valores, res) {
         if(valores.data) {
             valores.data = moment(valores.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS');
         }
@@ -82,10 +82,22 @@ class Atendimento {
             if(erro) {
                 res.status(400).json(erro);
             } else {
-                res.status(200).json(resultados);
+                res.status(200).json({...valores, id});
             }
         })
 
+    }
+
+    deletarAtendimento(id, res) {
+        const sql = 'DELETE FROM Atendimentos WHERE id=?'
+
+        conexao.query(sql, id, (erro, resultados) => {
+            if(erro) {
+                res.status(400).json(erro)
+            } else {
+                res.status(200).json({id})
+            }
+        })
     }
 } 
 
