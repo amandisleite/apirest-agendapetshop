@@ -2,7 +2,8 @@ class Tabelas {
     init(conexao) {
         this.conexao = conexao;
 
-        this.criarAtendimentos()
+        this.criarAtendimentos();
+        this.criarServicos();
     }
 
     criarAtendimentos() {
@@ -13,6 +14,18 @@ class Tabelas {
                 console.log(err)
             } else {
                 console.log('tabela de atendimentos criada com sucesso')
+            }
+        })
+    }
+
+    criarServicos() {
+        const sql = 'CREATE TABLE IF NOT EXISTS Servicos (id int NOT NULL AUTO_INCREMENT, nomeServico varchar(20) NOT NULL, preco varchar(20) NOT NULL, PRIMARY KEY(id))'
+
+        this.conexao.query(sql, (err) => {
+            if(err) {
+                console.log(err)
+            } else {
+                console.log('tabela de servicos criada com sucesso')
             }
         })
     }
